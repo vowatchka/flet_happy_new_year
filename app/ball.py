@@ -4,7 +4,7 @@ import random
 from dataclasses import dataclass
 import flet as ft
 
-from constants import OFFSET_BOTTOM
+from .constants import OFFSET_BOTTOM
 
 
 @dataclass
