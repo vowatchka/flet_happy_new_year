@@ -22,6 +22,25 @@ class HappyNewYearApp(ft.Column):
         self.horizontal_alignment = ft.CrossAxisAlignment.CENTER
         self.expand = True
 
+        self.app_header = ft.Container(
+            content=ft.Row(
+                controls=[
+                    ft.TextButton(
+                        text="Hosted by Cloudflare",
+                        style=ft.ButtonStyle(
+                            color=ft.Colors.BLUE,
+                            text_style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE),
+                        ),
+                        icon=ft.Icons.CLOUD_DONE,
+                        on_click=self._open_cloudflare,
+                    ),
+                ],
+                alignment=ft.MainAxisAlignment.END,
+                expand=True,
+            ),
+            margin=ft.margin.symmetric(horizontal=100, vertical=20),
+        )
+
         self.stack = ft.Stack(
             width=1000,
             height=280,
@@ -45,8 +64,13 @@ class HappyNewYearApp(ft.Column):
         )
 
         self.controls = [
+            self.app_header,
             self.app_view,
         ]
+
+    def _open_cloudflare(self, e: ft.ControlEvent):
+        """Открыть ссылку на Cloudflare"""
+        e.control.page.launch_url("https://dash.cloudflare.com/")
 
     def add(self, control: ft.Control):
         """Добавить элемент управления"""
