@@ -71,7 +71,7 @@ class HappyNewYearApp(ft.Row):
 
             ball.drop()
 
-            time.sleep(0.01)
+            time.sleep(0.03)
             self.go(e)
 
     def again(self, e: ft.ControlEvent):
@@ -87,7 +87,7 @@ class HappyNewYearApp(ft.Row):
 
             ball.restore()
 
-            time.sleep(0.01)
+            time.sleep(0.03)
             self.again(e)
         else:
             self.setup_buttons(None)
