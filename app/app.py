@@ -8,7 +8,7 @@ import flet as ft
 from .ball import Ball
 
 
-class HappyNewYearApp(ft.Row):
+class HappyNewYearApp(ft.Column):
     """Класс приложения"""
 
     def __init__(self):
@@ -19,6 +19,9 @@ class HappyNewYearApp(ft.Row):
         self.balls: list[Ball] = []
         self.dropped_balls: list[Ball] = []
 
+        self.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+        self.expand = True
+
         self.stack = ft.Stack(
             width=1000,
             height=280,
@@ -27,10 +30,23 @@ class HappyNewYearApp(ft.Row):
         self.again_button = ft.ElevatedButton(text="Again!", on_click=self.again)
         self.again_button.visible = False
 
-        self.alignment = ft.MainAxisAlignment.CENTER
-        self.vertical_alignment = ft.CrossAxisAlignment.CENTER
+        self.app_view = ft.Column(
+            controls=[
+                self.stack,
+                ft.Row(
+                    controls=[self.go_button, self.again_button],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                ),
+            ],
+            width=self.stack.width,
+            alignment=ft.MainAxisAlignment.CENTER,
+            spacing=70,
+            expand=True,
+        )
 
-        self.controls.append(self.stack)
+        self.controls = [
+            self.app_view,
+        ]
 
     def add(self, control: ft.Control):
         """Добавить элемент управления"""

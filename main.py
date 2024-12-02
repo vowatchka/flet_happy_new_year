@@ -12,7 +12,7 @@ def main(page: ft.Page):
     page.adaptive = True
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.spacing = 70
+    page.update()
 
     app = HappyNewYearApp()
     page.add(app)
@@ -80,8 +80,6 @@ def main(page: ft.Page):
     for init_params in balls_init_params:
         ball = Ball(init_params=init_params)
         app.add_ball(ball)
-
-    page.add(app.go_button, app.again_button)
 
 
 ft.app(target=main, view=ft.AppView.WEB_BROWSER)
