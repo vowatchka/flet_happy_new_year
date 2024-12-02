@@ -3,7 +3,7 @@
 import flet as ft
 from app.app import HappyNewYearApp
 from app.ball import Ball, BallInitParams
-from app.constants import OFFSET_BOTTOM
+from app.constants import OFFSET_BOTTOM, ASSETS_DIR
 
 
 def main(page: ft.Page):
@@ -82,4 +82,4 @@ def main(page: ft.Page):
         app.add_ball(ball)
 
 
-ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+ft.app(target=main, view=ft.AppView.WEB_BROWSER, assets_dir=ASSETS_DIR)
