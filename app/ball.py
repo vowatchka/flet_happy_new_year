@@ -81,8 +81,14 @@ class Ball(ft.Stack):
     def drop(self):
         """Падение шара"""
         self.setup_animation(None)
-        self.offset.y = OFFSET_BOTTOM
-        self.update()
+
+        if self.offset.y != OFFSET_BOTTOM:
+            # если шар выше линии пола, то он должен упасть
+            self.offset.y = OFFSET_BOTTOM
+            self.update()
+        else:
+            # если шар уже на полу, то он сразу начинает катиться
+            self.roll(None)
 
     def restore(self):
         """Вернуть шар на место"""
@@ -105,10 +111,7 @@ class Ball(ft.Stack):
 
         if not self.change_x:
             self.change_x = random.choice((-1, 1))
-            if self.change_x < 0:
-                self.max_x = random.randint(-3, self.offset.x + self.change_x)
-            else:
-                self.max_x = random.randint(self.offset.x + self.change_x, 26)
+            self.max_x = 100 * self.change_x
 
         self.offset.x += self.change_x
         if self.offset.x == self.max_x:
