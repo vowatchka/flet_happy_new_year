@@ -73,7 +73,7 @@ class HappyNewYearApp(ft.Column):
     def __init__(self):
         super().__init__()
 
-        self.run_again = False
+        self.drop_again = False
 
         self.balls: list[Ball] = []
         self.dropped_balls: list[Ball] = []
@@ -87,15 +87,15 @@ class HappyNewYearApp(ft.Column):
             width=1000,
             height=280,
         )
-        self.go_button = ft.ElevatedButton(text="Go!", on_click=self.go)
-        self.again_button = ft.ElevatedButton(text="Again!", on_click=self.again)
-        self.again_button.visible = False
+        self.drop_button = ft.ElevatedButton(text="Drop", on_click=self.drop_balls)
+        self.restore_button = ft.ElevatedButton(text="Restore", on_click=self.restore_balls)
+        self.restore_button.visible = False
 
         self.app_view = ft.Column(
             controls=[
                 self.stack,
                 ft.Row(
-                    controls=[self.go_button, self.again_button],
+                    controls=[self.drop_button, self.restore_button],
                     alignment=ft.MainAxisAlignment.CENTER,
                 ),
             ],
@@ -122,25 +122,25 @@ class HappyNewYearApp(ft.Column):
 
     def setup_buttons(self, e: ft.ControlEvent):
         """Настройка кнопок"""
-        self.again_button.visible = False
-        self.again_button.disabled = False
-        self.again_button.update()
+        self.restore_button.visible = False
+        self.restore_button.disabled = False
+        self.restore_button.update()
 
-        self.go_button.visible = True
-        self.go_button.update()
+        self.drop_button.visible = True
+        self.drop_button.update()
 
-    def go(self, e: ft.ControlEvent):
-        """Запустить анимацию"""
-        if self.run_again:
+    def drop_balls(self, e: ft.ControlEvent):
+        """Падение всех шаров"""
+        if self.drop_again:
             return
 
-        if self.go_button.visible:
-            self.go_button.visible = False
-            self.go_button.update()
+        if self.drop_button.visible:
+            self.drop_button.visible = False
+            self.drop_button.update()
 
-        if not self.again_button.visible:
-            self.again_button.visible = True
-            self.again_button.update()
+        if not self.restore_button.visible:
+            self.restore_button.visible = True
+            self.restore_button.update()
 
         if len(self.balls):
             idx = random.randint(0, len(self.balls) - 1)
@@ -150,12 +150,12 @@ class HappyNewYearApp(ft.Column):
             ball.drop()
 
             time.sleep(0.03)
-            self.go(e)
+            self.drop_balls(e)
 
-    def again(self, e: ft.ControlEvent):
-        """Повторить анимацию"""
-        if not self.run_again:
-            self.run_again = True
+    def restore_balls(self, e: ft.ControlEvent):
+        """Вернуть все шары на место"""
+        if not self.drop_again:
+            self.drop_again = True
             self.setup_buttons(None)
 
         if len(self.dropped_balls):
@@ -166,7 +166,7 @@ class HappyNewYearApp(ft.Column):
             ball.restore()
 
             time.sleep(0.03)
-            self.again(e)
+            self.restore_balls(e)
         else:
             self.setup_buttons(None)
-            self.run_again = False
+            self.drop_again = False
