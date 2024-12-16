@@ -23,7 +23,11 @@ flet run --web main.py
 Деплой настроен по [инструкции](https://flet.dev/docs/publish/web/static-website/hosting/cloudflare/) из официальной документации по Flet.
 
 Чтобы после деплоя приложение работало на Cloudflare должны соблюдаться несколько условий:
-* файл, который указывается в команде `flet publish`, должен находиться в корне репозитория. Например, `main.py`
+* файл, который указывается в команде `flet publish`, должен находиться в корне репозитория. Например
+  ```bash
+  flet publish main.py --distpath static_web -vv --pre
+  ```
+
 * в этом файле должен быть запуск приложения без `if __name__ == "__main__"`
 
   Правильно:
@@ -44,4 +48,5 @@ flet run --web main.py
   if __name__ == "__main__": 
     ft.app(target=main, view=ft.AppView.WEB_BROWSER)
   ```
+
 * в функцию `flet.app` обязательно нужно передать аргумент `view=ft.AppView.WEB_BROWSER`
